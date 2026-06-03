@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Api", "src\InventoryManagement.Api\InventoryManagement.Api.csproj", "{30E9931B-D167-41F6-8A48-9526A9D345FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.UnitTests", "tests\InventoryManagement.UnitTests\InventoryManagement.UnitTests.csproj", "{D792B285-3C54-47F8-8E08-14761D19A94D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.IntegrationTests", "tests\InventoryManagement.IntegrationTests\InventoryManagement.IntegrationTests.csproj", "{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Debug|x64.Build.0 = Debug|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Debug|x86.Build.0 = Debug|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Release|x64.ActiveCfg = Release|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Release|x64.Build.0 = Release|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Release|x86.ActiveCfg = Release|Any CPU
+		{30E9931B-D167-41F6-8A48-9526A9D345FC}.Release|x86.Build.0 = Release|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Debug|x64.Build.0 = Debug|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Debug|x86.Build.0 = Debug|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Release|x64.ActiveCfg = Release|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Release|x64.Build.0 = Release|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Release|x86.ActiveCfg = Release|Any CPU
+		{D792B285-3C54-47F8-8E08-14761D19A94D}.Release|x86.Build.0 = Release|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Debug|x64.Build.0 = Debug|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Debug|x86.Build.0 = Debug|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Release|x64.ActiveCfg = Release|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Release|x64.Build.0 = Release|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Release|x86.ActiveCfg = Release|Any CPU
+		{C7B3F704-0D42-4C85-9A2F-DFE317413FBD}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
