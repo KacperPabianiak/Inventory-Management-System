@@ -19,13 +19,13 @@ public sealed class InventoryEndpointTests
             "Keyboard",
             "Mechanical keyboard",
             199.99m,
-            12));
+            12), cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(HttpStatusCode.Created, createResponse.StatusCode);
-        var created = await createResponse.Content.ReadFromJsonAsync<ProductResponse>();
+        var created = await createResponse.Content.ReadFromJsonAsync<ProductResponse>(cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(created);
 
-        var products = await client.GetFromJsonAsync<ProductResponse[]>("/products");
+        var products = await client.GetFromJsonAsync<ProductResponse[]>("/products", cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(products);
         var product = Assert.Single(products);
@@ -43,7 +43,7 @@ public sealed class InventoryEndpointTests
 
         var product = await CreateProduct(client, "Desk", 250m, 3);
 
-        var read = await client.GetFromJsonAsync<ProductResponse>($"/products/{product.Id}");
+        var read = await client.GetFromJsonAsync<ProductResponse>($"/products/{product.Id}", cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(read);
         Assert.Equal("Desk", read!.Name);
 
@@ -51,19 +51,19 @@ public sealed class InventoryEndpointTests
             "Standing desk",
             "Adjustable desk",
             300m,
-            4));
+            4), cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(HttpStatusCode.OK, updateResponse.StatusCode);
-        var updated = await updateResponse.Content.ReadFromJsonAsync<ProductResponse>();
+        var updated = await updateResponse.Content.ReadFromJsonAsync<ProductResponse>(cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(updated);
         Assert.Equal("Standing desk", updated!.Name);
         Assert.Equal(300m, updated.Price);
         Assert.Equal(4, updated.Stock);
 
-        var deleteResponse = await client.DeleteAsync($"/products/{product.Id}");
+        var deleteResponse = await client.DeleteAsync($"/products/{product.Id}", TestContext.Current.CancellationToken);
         Assert.Equal(HttpStatusCode.NoContent, deleteResponse.StatusCode);
 
-        var missingResponse = await client.GetAsync($"/products/{product.Id}");
+        var missingResponse = await client.GetAsync($"/products/{product.Id}", TestContext.Current.CancellationToken);
         Assert.Equal(HttpStatusCode.NotFound, missingResponse.StatusCode);
     }
 
@@ -77,25 +77,25 @@ public sealed class InventoryEndpointTests
 
         var orderResponse = await client.PostAsJsonAsync("/orders", new CreateOrderRequest(
             InventoryDbContextSeed.EuropeCustomerId,
-            [new OrderProductRequest(product.Id, 5)]));
+            [new OrderProductRequest(product.Id, 5)]), cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(HttpStatusCode.Created, orderResponse.StatusCode);
-        var order = await orderResponse.Content.ReadFromJsonAsync<OrderResponse>();
+        var order = await orderResponse.Content.ReadFromJsonAsync<OrderResponse>(cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(order);
         Assert.Equal(575m, order!.Subtotal);
         Assert.Equal("Volume", order.DiscountName);
         Assert.Equal(57.50m, order.DiscountAmount);
         Assert.Equal(517.50m, order.Total);
 
-        var products = await client.GetFromJsonAsync<ProductResponse[]>("/products");
+        var products = await client.GetFromJsonAsync<ProductResponse[]>("/products", cancellationToken: TestContext.Current.CancellationToken);
         Assert.Equal(5, Assert.Single(products!).Stock);
 
-        var storedOrder = await client.GetFromJsonAsync<OrderResponse>($"/orders/{order.Id}");
+        var storedOrder = await client.GetFromJsonAsync<OrderResponse>($"/orders/{order.Id}", cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(storedOrder);
         Assert.Equal(order.Id, storedOrder!.Id);
         Assert.Single(storedOrder.Lines);
 
-        var allOrders = await client.GetFromJsonAsync<OrderResponse[]>("/orders");
+        var allOrders = await client.GetFromJsonAsync<OrderResponse[]>("/orders", cancellationToken: TestContext.Current.CancellationToken);
         Assert.Single(allOrders!);
     }
 
@@ -109,11 +109,11 @@ public sealed class InventoryEndpointTests
 
         var orderResponse = await client.PostAsJsonAsync("/orders", new CreateOrderRequest(
             InventoryDbContextSeed.UnitedStatesCustomerId,
-            [new OrderProductRequest(product.Id, 3)]));
+            [new OrderProductRequest(product.Id, 3)]), cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(HttpStatusCode.Conflict, orderResponse.StatusCode);
 
-        var products = await client.GetFromJsonAsync<ProductResponse[]>("/products");
+        var products = await client.GetFromJsonAsync<ProductResponse[]>("/products", cancellationToken: TestContext.Current.CancellationToken);
         Assert.Equal(2, Assert.Single(products!).Stock);
     }
 
@@ -127,7 +127,7 @@ public sealed class InventoryEndpointTests
             "",
             new string('a', 51),
             -1m,
-            -1));
+            -1), cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
@@ -140,10 +140,10 @@ public sealed class InventoryEndpointTests
 
         var response = await client.PostAsJsonAsync("/orders", new CreateOrderRequest(
             Guid.Empty,
-            [new OrderProductRequest(Guid.Empty, 0)]));
+            [new OrderProductRequest(Guid.Empty, 0)]), cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        var problem = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
+        var problem = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>(cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(problem);
         Assert.Contains("CustomerId", problem!.Errors.Keys);
         Assert.Contains("products[0].productId", problem.Errors.Keys);
@@ -156,10 +156,10 @@ public sealed class InventoryEndpointTests
         await using var factory = new InventoryApiFactory(new DateTimeOffset(new DateTime(2026, 6, 2)));
         using var client = factory.CreateClient();
 
-        var response = await client.GetAsync($"/products/{Guid.NewGuid()}");
+        var response = await client.GetAsync($"/products/{Guid.NewGuid()}", TestContext.Current.CancellationToken);
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-        var problem = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+        var problem = await response.Content.ReadFromJsonAsync<ProblemDetails>(cancellationToken: TestContext.Current.CancellationToken);
         Assert.Equal("Product was not found.", problem!.Title);
     }
 
