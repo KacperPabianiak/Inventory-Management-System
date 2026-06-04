@@ -31,17 +31,15 @@ builder.Services.AddScoped<GetOrderByIdQueryHandler>();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<InventoryDbContext>();
-    db.Database.Migrate();
-    await db.SeedCustomers();
-}
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<InventoryDbContext>();
+    db.Database.Migrate();
+    await db.SeedCustomers();
 }
 
 app.UseExceptionHandler(errorApp =>

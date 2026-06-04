@@ -44,7 +44,7 @@ public static class PolishHolidays
         var l = (32 + 2 * e + 2 * i - h - k) % 7;
         var m = (a + 11 * h + 22 * l) / 451;
         var month = (h + l - 7 * m + 114) / 31;
-        var day = ((h + l - 7 * m + 114) % 31) + 1;
+        var day = (h + l - 7 * m + 114) % 31 + 1;
 
         return new DateTimeOffset(new DateTime(year, month, day));
     }
